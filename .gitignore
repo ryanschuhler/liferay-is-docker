@@ -1,0 +1,6 @@
+.password
+.ssh
+.username
+build-resources/patches
+bundle.zip
+license.xml
