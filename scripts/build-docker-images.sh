@@ -22,7 +22,7 @@ docker build \
 	--build-arg JAVA_PACKAGE=openjdk8 \
 	--build-arg LICENSE_URL=http://files.liferay.com/private/ee/liferay-up/License/7.0/license.xml \
 	--build-arg PATCH_URLS=http://files.liferay.com/private/ee/fix-packs/7.0.10/de/liferay-fix-pack-de-44-7010.zip \
-	../liferay-base
+	../liferay
 
 docker build \
 	-t ryanschuhler/liferay:6.2 \
@@ -30,7 +30,7 @@ docker build \
 	--build-arg JAVA_PACKAGE=openjdk7 \
 	--build-arg LICENSE_URL=http://files.liferay.com/private/ee/liferay-up/License/6.2/license.xml \
 	--build-arg PATCH_URLS=http://files.liferay.com/private/ee/fix-packs/6.2.10/portal/liferay-fix-pack-portal-165-6210.zip \
-	../liferay-base
+	../liferay
 
 docker build \
 	-t ryanschuhler/liferay:6.1 \
@@ -38,7 +38,7 @@ docker build \
 	--build-arg JAVA_PACKAGE=openjdk7 \
 	--build-arg LICENSE_URL=http://files.liferay.com/private/ee/liferay-up/License/6.1/license.xml \
 	--build-arg PATCH_URLS=http://files.liferay.com/private/ee/fix-packs/6.1.20/hotfix/liferay-hotfix-4323-6120.zip \
-	../liferay-base
+	../liferay
 
 docker build \
 	-t ryanschuhler/mariadb:ism \
@@ -47,3 +47,11 @@ docker build \
 docker build \
 	-t ryanschuhler/mockmock:ism \
 	../mockmock
+
+docker build \
+	-t ryanschuhler/liferay:www-dxp \
+	--build-arg BASE_IMAGE=ryanschuhler/liferay:7.0 \
+	--build-arg CONFIG_RESOURCES_DIR=./configs/local \
+	--build-arg GIT_BRANCH=7.0.x-private \
+	--build-arg GIT_REPO=git@github.com:liferay/liferay-portal-ee.git \
+	../liferay-instances

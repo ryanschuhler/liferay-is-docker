@@ -3,17 +3,17 @@ ARG BUILD_RESOURCES_DIR=/tmp/build-resources
 ARG CONFIG_RESOURCES_DIR
 ARG BUILD_SCRIPTS=deploy-modules.sh
 ARG GIT_BRANCH
-ARG GIT_HASH
+ARG GIT_HASH=HEAD
 ARG GIT_REPO
-ARG JAVA_PACKAGE
+ARG JAVA_PACKAGE=openjdk8
 
-FROM BASE_IMAGE AS liferay-build
+FROM ${BASE_IMAGE} AS liferay-build
 
 ENV LIFERAY_HOME=/opt/java/liferay
 
 RUN apk update \
   && apk upgrade \
-  && apk add bash curl git $JAVA_PACKAGE openssh-client unzip zip
+  && apk add bash curl git ${JAVA_PACKAGE} openssh-client unzip zip
 
 COPY ./build-resources/ ${BUILD_RESOURCES_DIR}/
 
@@ -45,7 +45,7 @@ USER liferay:liferay
 
 COPY --chown=liferay:liferay --from=liferay-build $LIFERAY_HOME $LIFERAY_HOME
 
-COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY --from=liferay-build /usr/local/bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 EXPOSE 8080
 EXPOSE 11311
