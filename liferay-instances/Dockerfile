@@ -32,9 +32,7 @@ RUN chmod +x ${BUILD_RESOURCES_DIR}/scripts/*.sh \
 
 COPY ${CONFIG_RESOURCES_DIR}/ ${LIFERAY_HOME}/
 
-ARG RUNTIME_IMAGE=alpine:latest
-
-FROM ${RUNTIME_IMAGE}
+FROM alpine:latest
 
 ARG ADDITIONAL_PACKAGES=openjdk8
 
