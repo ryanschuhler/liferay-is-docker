@@ -15,3 +15,9 @@ docker push ryanschuhler/hubspot:ism
 docker push ryanschuhler/mariadb:ism
 
 docker push ryanschuhler/mockmock:ism
+
+docker push ryanschuhler/liferay:web-prod
+
+docker push ryanschuhler/liferay:www-prod
+
+docker push ryanschuhler/liferay:www-dxp

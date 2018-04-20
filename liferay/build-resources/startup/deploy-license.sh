@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp -v ./license.xml ${LIFERAY_HOME}/deploy
+cp -v ${LIFERAY_HOME}/startup/license.xml ${LIFERAY_HOME}/deploy

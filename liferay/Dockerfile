@@ -1,4 +1,6 @@
-FROM alpine:latest AS liferay-build
+ARG BASE_IMAGE=alpine:latest
+
+FROM ${BASE_IMAGE} AS liferay-build
 
 ARG BUILD_RESOURCES_DIR=/tmp/build-resources
 ARG BUILD_SCRIPTS=bundle-exclude.sh,apply-fix-packs.sh
@@ -12,7 +14,7 @@ ENV LIFERAY_HOME=/opt/java/liferay
 
 RUN apk update \
   && apk upgrade \
-  && apk add bash curl git $JAVA_PACKAGE openssh-client unzip zip
+  && apk add bash curl git openssh-client unzip ${JAVA_PACKAGE}
 
 COPY ./build-resources/ ${BUILD_RESOURCES_DIR}/
 
@@ -23,9 +25,9 @@ RUN if [ -f "${BUILD_RESOURCES_DIR}/${LIFERAY_BUNDLE_NAME}" ] \
     set -x \
     && mkdir -p /opt/java \
     && unzip ${BUILD_RESOURCES_DIR}/${LIFERAY_BUNDLE_NAME} -d /opt/java \
-    && find /opt/java -depth -maxdepth 1 -type d -name "liferay-*" -exec mv {} /opt/java/liferay \; \
-    && mkdir -p /opt/java/liferay/deploy \
-    && find /opt/java/liferay -depth -maxdepth 1 -type d -name "tomcat-*" -exec mv {} /opt/java/liferay/tomcat \; \
+    && find /opt/java -depth -maxdepth 1 -type d -name "liferay-*" -exec mv {} ${LIFERAY_HOME} \; \
+    && mkdir -p ${LIFERAY_HOME}/deploy \
+    && find ${LIFERAY_HOME} -depth -maxdepth 1 -type d -name "tomcat-*" -exec mv {} ${LIFERAY_HOME}/tomcat \; \
     && mkdir -p ${LIFERAY_HOME}/bin \
     && mv ${BUILD_RESOURCES_DIR}/startup ${LIFERAY_HOME}/bin \
     && chmod +x ${LIFERAY_HOME}/bin/startup/*.sh \
@@ -41,7 +43,9 @@ RUN chmod +x ${BUILD_RESOURCES_DIR}/scripts/*.sh \
        ; fi \
     ; done
 
-FROM alpine:latest
+ARG BASE_IMAGE=alpine:latest
+
+FROM ${BASE_IMAGE}
 
 ARG JAVA_PACKAGE=openjdk8
 
@@ -49,16 +53,15 @@ ENV LIFERAY_HOME=/opt/java/liferay
 
 RUN apk update \
   && apk upgrade \
-  && apk add --no-cache bash $JAVA_PACKAGE \
+  && apk add --no-cache bash ${JAVA_PACKAGE} \
   && addgroup -S liferay \
   && adduser -S -G liferay liferay
 
-COPY --chown=liferay:liferay --from=liferay-build $LIFERAY_HOME $LIFERAY_HOME
-
-COPY ./build-resources/scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY --chown=liferay:liferay --from=liferay-build /opt /opt
+COPY --chown=liferay:liferay ./build-resources/scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 EXPOSE 8080
 EXPOSE 11311
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["/opt/java/liferay/tomcat/bin/catalina.sh", "run"]
+CMD ["${LIFERAY_HOME}/tomcat/bin/catalina.sh", "run"]
