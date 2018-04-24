@@ -9,8 +9,17 @@ eval "$(ssh-agent -s)"
 ssh-add ${BUILD_RESOURCES_DIR}/.ssh/id_rsa
 ssh -o StrictHostKeyChecking=no -l $(whoami) github.com
 
-#git clone ${GIT_REPO} --single-branch --branch ${GIT_BRANCH} --depth=1 --progress ${REPO_DIR}
+git clone ${GIT_REPO} --single-branch --branch ${GIT_BRANCH} --depth=1 --progress ${REPO_DIR}
 
-#git reset --hard ${GIT_HASH}
+git reset --hard ${GIT_HASH}
 
-echo Deployed!
+for item in $(echo ${DEPLOYMENT_ITEMS} | sed "s/,/ /g")
+do
+	if [ -d ${REPO_DIR}/${item} ] ; then
+		echo "Deploying ${item}";
+
+		cd ${REPO_DIR}/${item}
+
+		$(git rev-parse --show-toplevel)/gradlew deploy
+	fi
+done

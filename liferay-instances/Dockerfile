@@ -37,6 +37,7 @@ FROM alpine:latest
 ARG ADDITIONAL_PACKAGES=openjdk8
 
 ENV LIFERAY_HOME=/opt/java/liferay
+ENV PATH=${PATH}:${LIFERAY_HOME}/bin:${LIFERAY_HOME}/tomcat/bin/
 
 RUN apk update \
   && apk upgrade \
@@ -47,10 +48,9 @@ RUN apk update \
 USER liferay:liferay
 
 COPY --chown=liferay:liferay --from=liferay-build /opt /opt
-COPY --chown=liferay:liferay --from=liferay-build /usr/local/bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 EXPOSE 8080
 EXPOSE 11311
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["${LIFERAY_HOME}/tomcat/bin/catalina.sh", "run"]
+CMD ["catalina.sh", "run"]
