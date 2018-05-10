@@ -1,0 +1,1 @@
+CATALINA_OPTS="$CATALINA_OPTS -server -Dfile.encoding=UTF8 -Xms4068m -Xmx4068m -XX:MaxPermSize=512M -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:SurvivorRatio=20 -XX:ParallelGCThreads=2 -Djava.net.preferIPv4Stack=true"
