@@ -36,7 +36,7 @@ docker build \
 docker build \
 	-t ryanschuhler/liferay:6.1 \
 	--build-arg BASE_IMAGE=alpine:3.4 \
-	--build-arg BUNDLE_URL=https://files.liferay.com/private/ee/portal/6.1.30.5/liferay-portal-tomcat-6.1-ee-ga3-sp5-20160201142343123.zip \
+	--build-arg BUNDLE_URL=https://files.liferay.com/private/ee/portal/6.1.20/liferay-portal-tomcat-6.1.20-ee-ga2-20120731110418084.zip \
 	--build-arg JAVA_PACKAGE=openjdk7 \
 	--build-arg LICENSE_URL=http://files.liferay.com/private/ee/liferay-up/License/6.1/license.xml \
 	--build-arg PATCH_URLS=http://files.liferay.com/private/ee/fix-packs/6.1.20/hotfix/liferay-hotfix-4323-6120.zip \

@@ -20,7 +20,8 @@ touch ${BUILD_PROPERTIES_FILE}
 echo "app.server.parent.dir=${LIFERAY_HOME}" >> ${BUILD_PROPERTIES_FILE}
 echo "app.server.tomcat.dir=\${app.server.parent.dir}/tomcat" >> ${BUILD_PROPERTIES_FILE}
 
-export JAVA_HOME /usr/lib/jvm/java-1.7-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-1.7-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
 cp /opt/java/liferay/tomcat/lib/ecj* /usr/share/java/apache-ant/lib
 
 for item in $(echo ${DEPLOYMENT_ITEMS} | sed "s/,/ /g")
