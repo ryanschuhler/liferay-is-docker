@@ -31,6 +31,6 @@ do
 
 		cd ${REPO_DIR}/${item}
 
-		ant deploy
+		ant direct-deploy
 	fi
 done
