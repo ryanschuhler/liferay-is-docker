@@ -26,21 +26,21 @@ RUN chmod +x ${BUILD_RESOURCES_DIR}/scripts/*.sh \
     ; done
 
 COPY ${CONFIG_RESOURCES_DIR}/ ${LIFERAY_HOME}/
-#
-#FROM alpine:latest
-#
-#ENV LIFERAY_HOME=/opt/java/liferay
-#ENV PATH=${PATH}:${LIFERAY_HOME}/bin:${LIFERAY_HOME}/tomcat/bin/
-#
-#RUN apk update \
-#  && apk upgrade \
-#  && apk add --no-cache bash \
-#  && addgroup -S liferay \
-#  && adduser -S -G liferay liferay
 
-#USER liferay:liferay
+FROM alpine:latest
 
-#COPY --chown=liferay:liferay --from=liferay-build /opt /opt
+ENV LIFERAY_HOME=/opt/java/liferay
+ENV PATH=${PATH}:${LIFERAY_HOME}/bin:${LIFERAY_HOME}/tomcat/bin/
+
+RUN apk update \
+  && apk upgrade \
+  && apk add --no-cache bash \
+  && addgroup -S liferay \
+  && adduser -S -G liferay liferay
+
+USER liferay:liferay
+
+COPY --chown=liferay:liferay --from=liferay-build /opt /opt
 
 EXPOSE 8080
 EXPOSE 11311
