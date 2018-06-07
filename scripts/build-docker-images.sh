@@ -28,7 +28,6 @@ docker build \
 	-t ryanschuhler/liferay:6.2 \
 	--build-arg BASE_IMAGE=alpine:3.4 \
 	--build-arg BUNDLE_URL=http://files.liferay.com/private/ee/portal/6.2.10.15/liferay-portal-tomcat-6.2-ee-sp14-20151105114451508.zip \
-	--build-arg JAVA_PACKAGE=openjdk7 \
 	--build-arg LICENSE_URL=http://files.liferay.com/private/ee/liferay-up/License/6.2/license.xml \
 	--build-arg PATCH_URLS=http://files.liferay.com/private/ee/fix-packs/6.2.10/portal/liferay-fix-pack-portal-165-6210.zip \
 	../liferay
@@ -37,7 +36,6 @@ docker build \
 	-t ryanschuhler/liferay:6.1 \
 	--build-arg BASE_IMAGE=alpine:3.4 \
 	--build-arg BUNDLE_URL=https://files.liferay.com/private/ee/portal/6.1.20/liferay-portal-tomcat-6.1.20-ee-ga2-20120731110418084.zip \
-	--build-arg JAVA_PACKAGE=openjdk7 \
 	--build-arg LICENSE_URL=http://files.liferay.com/private/ee/liferay-up/License/6.1/license.xml \
 	--build-arg PATCH_URLS=http://files.liferay.com/private/ee/fix-packs/6.1.20/hotfix/liferay-hotfix-4323-6120.zip \
 	../liferay
@@ -61,7 +59,6 @@ docker build \
 
 docker build \
 	-t ryanschuhler/liferay:www-prod \
-	--build-arg ADDITIONAL_PACKAGES=openjdk7 \
 	--build-arg BASE_IMAGE=ryanschuhler/liferay:6.2 \
 	--build-arg BUILD_SCRIPTS=deploy-plugins.sh \
 	--build-arg CONFIG_RESOURCES_DIR=./configs/www-prod \
@@ -72,7 +69,6 @@ docker build \
 
 docker build \
 	-t ryanschuhler/liferay:web-prod \
-	--build-arg ADDITIONAL_PACKAGES=openjdk7 \
 	--build-arg BASE_IMAGE=ryanschuhler/liferay:6.1 \
 	--build-arg BUILD_SCRIPTS=deploy-plugins.sh \
 	--build-arg CONFIG_RESOURCES_DIR=./configs/web-prod \

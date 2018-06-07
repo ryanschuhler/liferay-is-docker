@@ -7,7 +7,7 @@ PATCH_FILES_DIR=${BUILD_RESOURCES_DIR}/patches
 PATCH_FILES=`find $PATCH_FILES_DIR -type f`
 
 # Exit if no fixpack urls defined
-if [ -z "$LIFERAY_FIXPACK_DOWNLOAD_URLS" ] && [ -z "$PATCH_FILES" ]
+if [ -z "$PATCH_URLS" ] && [ -z "$PATCH_FILES" ]
 then
     exit 0
 fi

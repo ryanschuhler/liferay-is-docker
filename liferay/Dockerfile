@@ -5,16 +5,18 @@ FROM ${BASE_IMAGE} AS liferay-build
 ARG BUILD_RESOURCES_DIR=/tmp/build-resources
 ARG BUILD_SCRIPTS=bundle-exclude.sh,apply-fix-packs.sh
 ARG BUNDLE_URL
-ARG JAVA_PACKAGE=openjdk8
 ARG LICENSE_URL
 ARG LIFERAY_BUNDLE_NAME=bundle.zip
 ARG PATCH_URLS
 
 ENV LIFERAY_HOME=/opt/java/liferay
+ENV PATH=${PATH}:${LIFERAY_HOME}/bin:${LIFERAY_HOME}/tomcat/bin/
 
 RUN apk update \
-  && apk upgrade \
-  && apk add bash curl git openssh-client unzip ${JAVA_PACKAGE}
+	&& apk upgrade \
+	&& apk add bash curl unzip openjdk8 \
+	&& addgroup -S liferay \
+	&& adduser -S -G liferay liferay
 
 COPY ./build-resources/ ${BUILD_RESOURCES_DIR}/
 
@@ -44,23 +46,6 @@ RUN chmod +x ${BUILD_RESOURCES_DIR}/scripts/*.sh \
     ; done
 
 COPY ./build-resources/scripts/entrypoint.sh ${LIFERAY_HOME}/bin/entrypoint.sh
-
-ARG BASE_IMAGE=alpine:latest
-
-FROM ${BASE_IMAGE}
-
-ARG JAVA_PACKAGE=openjdk8
-
-ENV LIFERAY_HOME=/opt/java/liferay
-ENV PATH=${PATH}:${LIFERAY_HOME}/bin:${LIFERAY_HOME}/tomcat/bin/
-
-RUN apk update \
-  && apk upgrade \
-  && apk add --no-cache bash ${JAVA_PACKAGE} \
-  && addgroup -S liferay \
-  && adduser -S -G liferay liferay
-
-COPY --chown=liferay:liferay --from=liferay-build /opt /opt
 
 EXPOSE 8080
 EXPOSE 11311

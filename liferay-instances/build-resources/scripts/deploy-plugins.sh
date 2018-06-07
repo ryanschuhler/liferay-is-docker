@@ -2,6 +2,8 @@
 
 REPO_DIR=${BUILD_RESOURCES_DIR}/repo
 
+apk add apache-ant git openjdk7 openssh-client
+
 [ -d ${REPO_DIR} ] || mkdir ${REPO_DIR}
 cd ${REPO_DIR}
 
