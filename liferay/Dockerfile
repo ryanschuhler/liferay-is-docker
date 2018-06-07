@@ -8,6 +8,7 @@ ARG BUNDLE_URL
 ARG LICENSE_URL
 ARG LIFERAY_BUNDLE_NAME=bundle.zip
 ARG PATCH_URLS
+ARG PATCHING_TOOL_URL=http://files.liferay.com/private/ee/fix-packs/patching-tool/patching-tool-22.zip
 
 ENV LIFERAY_HOME=/opt/java/liferay
 ENV PATH=${PATH}:${LIFERAY_HOME}/bin:${LIFERAY_HOME}/tomcat/bin/
