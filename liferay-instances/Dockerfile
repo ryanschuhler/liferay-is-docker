@@ -34,7 +34,7 @@ ENV PATH=${PATH}:${LIFERAY_HOME}/bin:${LIFERAY_HOME}/tomcat/bin/
 
 RUN apk update \
   && apk upgrade \
-  && apk add --no-cache bash \
+  && apk add --no-cache bash openjdk8 \
   && addgroup -S liferay \
   && adduser -S -G liferay liferay
 
