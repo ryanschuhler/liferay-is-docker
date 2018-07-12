@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BUILD_RESOURCES=../liferay-base/build-resources
+BUILD_RESOURCES=../liferay/build-resources
 
 echo Enter your username for mirrors.liferay
 read username
