@@ -1,11 +1,5 @@
 #!/bin/bash
 
-CREDENTIALS=""
-
-if [ -f "${BUILD_RESOURCES_DIR}/.username" ] && [ -f "${BUILD_RESOURCES_DIR}/.password" ]; then
-    CREDENTIALS="-u $(cat ${BUILD_RESOURCES_DIR}/.username):$(cat ${BUILD_RESOURCES_DIR}/.password)"
-fi
-
 downloadFile() {
     URL=$1
     DEST=$2
@@ -19,7 +13,7 @@ downloadFile() {
     fi
 }
 
-downloadFile ${BUNDLE_URL} ${BUILD_RESOURCES_DIR}/bundle.zip
+downloadFile ${BUNDLE_URL} ${BUILD_RESOURCES_DIR}/bundle.zipz
 
 if [ ${LICENSE_URL} != "" ]; then
   downloadFile ${LICENSE_URL} ${BUILD_RESOURCES_DIR}/startup/license.xml

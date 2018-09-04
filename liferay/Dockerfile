@@ -5,6 +5,7 @@ FROM ${BASE_IMAGE} AS liferay-build
 ARG BUILD_RESOURCES_DIR=/tmp/build-resources
 ARG BUILD_SCRIPTS=bundle-exclude.sh,apply-fix-packs.sh
 ARG BUNDLE_URL
+ARG CREDENTIALS
 ARG LICENSE_URL
 ARG LIFERAY_BUNDLE_NAME=bundle.zip
 ARG PATCH_URLS
