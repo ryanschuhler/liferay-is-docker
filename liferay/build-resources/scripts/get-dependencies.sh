@@ -13,7 +13,7 @@ downloadFile() {
     fi
 }
 
-downloadFile ${BUNDLE_URL} ${BUILD_RESOURCES_DIR}/bundle.zipz
+downloadFile ${BUNDLE_URL} ${BUILD_RESOURCES_DIR}/bundle.zip
 
 if [ ${LICENSE_URL} != "" ]; then
   downloadFile ${LICENSE_URL} ${BUILD_RESOURCES_DIR}/startup/license.xml
